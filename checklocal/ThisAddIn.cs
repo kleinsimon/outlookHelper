@@ -6,6 +6,7 @@ using System.Xml.Linq;
 using Outlook = Microsoft.Office.Interop.Outlook;
 using Office = Microsoft.Office.Core;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace checklocal
 {
@@ -20,25 +21,57 @@ namespace checklocal
         {
             try
             {
-                string address, tld;
-                Outlook.MailItem mail = (Outlook.MailItem)Item;
+                string address;
 
-                address = mail.SendUsingAccount.SmtpAddress;
-                tld = address.Substring(address.LastIndexOf("."));
-                if (tld == ".local")
+
+                Outlook.MailItem mail = (Outlook.MailItem)Item;
+                Outlook.Recipient bcc;
+
+                if (Properties.Settings.Default.AddBCC != "" && (mail.BCC == null || !mail.BCC.Contains(Properties.Settings.Default.AddBCC)))
                 {
-                    DialogResult dr = MessageBox.Show("E-Mail wirklich vom lokalen Account (*@wtech.local) verschicken?", "Mail lokal veerschicken?", MessageBoxButtons.OKCancel);
+                    address = mail.SendUsingAccount.SmtpAddress;
+                    string[] BCCaddresses = Properties.Settings.Default.BCCSender.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    if (BCCaddresses.Length == 0 || BCCaddresses.Contains(address))
+                    {
+                        bcc = mail.Recipients.Add(Properties.Settings.Default.AddBCC);
+                        bcc.Type = (int)Outlook.OlMailRecipientType.olBCC;
+                        bcc.Resolve();
+                    }
+                }
+
+                if (WildcardMatch(mail.SendUsingAccount.SmtpAddress, Properties.Settings.Default.checkSender, false))
+                {
+                    DialogResult dr = MessageBox.Show(
+                        "E-Mail wirklich vom Account (" + Properties.Settings.Default.checkSender + ") verschicken?",
+                        "Mail lokal veerschicken?",
+                        MessageBoxButtons.OKCancel
+                        );
                     if (dr == DialogResult.Cancel) Cancel = true;
                 }
             }
-            catch
+            catch (Exception e)
             {
+                MessageBox.Show(e.Message + "\n" + e.StackTrace + "\n" + e.Source);
             }
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
 
+        }
+
+        private bool WildcardMatch(String s, String wildcard, bool case_sensitive)
+        {
+            String pattern = "^" + Regex.Escape(wildcard).Replace(@"\*", ".*").Replace(@"\?", ".") + "$";
+
+            Regex regex;
+            if (case_sensitive)
+                regex = new Regex(pattern);
+            else
+                regex = new Regex(pattern, RegexOptions.IgnoreCase);
+
+            return (regex.IsMatch(s));
         }
 
         #region Von VSTO generierter Code
@@ -52,7 +85,7 @@ namespace checklocal
             this.Startup += new System.EventHandler(ThisAddIn_Startup);
             this.Shutdown += new System.EventHandler(ThisAddIn_Shutdown);
         }
-        
+
         #endregion
     }
 }
