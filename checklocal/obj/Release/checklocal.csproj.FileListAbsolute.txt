@@ -1,0 +1,12 @@
+X:\dev\check.local\checklocal\checklocal\bin\Release\checklocal.dll
+X:\dev\check.local\checklocal\checklocal\bin\Release\checklocal.pdb
+X:\dev\check.local\checklocal\checklocal\bin\Release\checklocal.dll.manifest
+X:\dev\check.local\checklocal\checklocal\bin\Release\checklocal.vsto
+X:\dev\check.local\checklocal\checklocal\bin\Release\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+X:\dev\check.local\checklocal\checklocal\bin\Release\Microsoft.Office.Tools.Outlook.v4.0.Utilities.dll
+X:\dev\check.local\checklocal\checklocal\bin\Release\Microsoft.Office.Tools.Common.v4.0.Utilities.xml
+X:\dev\check.local\checklocal\checklocal\bin\Release\Microsoft.Office.Tools.Outlook.v4.0.Utilities.xml
+X:\dev\check.local\checklocal\checklocal\obj\Release\checklocal.Properties.Resources.resources
+X:\dev\check.local\checklocal\checklocal\obj\Release\checklocal.csproj.GenerateResource.Cache
+X:\dev\check.local\checklocal\checklocal\obj\Release\checklocal.dll
+X:\dev\check.local\checklocal\checklocal\obj\Release\checklocal.pdb
