@@ -9,9 +9,9 @@ using System.Security;
 [assembly: AssemblyTitle("checklocal")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyCompany("Lehrstuhl Werkstofftechnik")]
 [assembly: AssemblyProduct("checklocal")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2013")]
+[assembly: AssemblyCopyright("Copyright © Simon Klein 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

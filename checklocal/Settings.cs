@@ -11,21 +11,22 @@ namespace checklocal
 {
     public partial class Settings : Form
     {
-        public Settings()
+        Ribbon1 parent = null;
+        public Settings(Ribbon1 prn)
         {
             InitializeComponent();
-            textCheck.Text = Properties.Settings.Default.checkSender;
-            textBCC.Text = Properties.Settings.Default.AddBCC;
-            textBCCSender.Text = Properties.Settings.Default.BCCSender;
+            parent = prn;
+
+            textCheck.Text = parent.checkSender;
+            textBCC.Text = parent.AddBCC;
+            textBCCSender.Text = parent.BCCSender;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.checkSender = textCheck.Text;
-            Properties.Settings.Default.AddBCC = textBCC.Text;
-            Properties.Settings.Default.BCCSender = textBCCSender.Text;
-
-            Properties.Settings.Default.Save();
+            parent.checkSender = textCheck.Text;
+            parent.AddBCC = textBCC.Text;
+            parent.BCCSender = textBCCSender.Text;
 
             this.Close();
         }

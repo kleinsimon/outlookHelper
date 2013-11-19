@@ -28,14 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textCheck = new System.Windows.Forms.TextBox();
-            this.textBCC = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textCheck = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBCC = new System.Windows.Forms.TextBox();
             this.textBCCSender = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,14 +64,34 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(284, 123);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 52);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(111, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "BCC nur bei Absender";
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(113, 26);
+            this.label1.Size = new System.Drawing.Size(110, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Warnen bei Absender (*.local)";
+            this.label1.Text = "Warnen bei Absender";
+            // 
+            // textCheck
+            // 
+            this.textCheck.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textCheck.Location = new System.Drawing.Point(145, 3);
+            this.textCheck.Name = "textCheck";
+            this.textCheck.Size = new System.Drawing.Size(136, 20);
+            this.textCheck.TabIndex = 2;
+            this.toolTip1.SetToolTip(this.textCheck, "Hier kann ein Absender eingegeben werden, bei dem Eine Warnung vor dem Versenden " +
+        "gegeben wird. Entweder eine volle E-Mail Adresse, oder mit * (z.B: *.local)");
             // 
             // label2
             // 
@@ -80,15 +102,6 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "BCC hinzufügen:";
             // 
-            // textCheck
-            // 
-            this.textCheck.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textCheck.Location = new System.Drawing.Point(145, 3);
-            this.textCheck.Name = "textCheck";
-            this.textCheck.Size = new System.Drawing.Size(136, 20);
-            this.textCheck.TabIndex = 2;
-            // 
             // textBCC
             // 
             this.textBCC.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -97,15 +110,8 @@
             this.textBCC.Name = "textBCC";
             this.textBCC.Size = new System.Drawing.Size(136, 20);
             this.textBCC.TabIndex = 3;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 52);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(134, 26);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "BCC nur bei Absender (Mit Komma trennen):";
+            this.toolTip1.SetToolTip(this.textBCC, "Soll jeder versendeten Nachricht ein bestimmter BCC hinzugefügt werden, kann dies" +
+        "er hier eingegeben werden.");
             // 
             // textBCCSender
             // 
@@ -115,6 +121,9 @@
             this.textBCCSender.Name = "textBCCSender";
             this.textBCCSender.Size = new System.Drawing.Size(136, 20);
             this.textBCCSender.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.textBCCSender, "Wird hier eine E-Mail Adresse eingegeben, wird der BCC nur hinzugefügt, wenn von " +
+        "dieser Adresse geschickt wird. Dies können auch mehrere mit Komma getrennte Adre" +
+        "ssen sein.");
             // 
             // button1
             // 
@@ -134,7 +143,7 @@
             this.ClientSize = new System.Drawing.Size(284, 123);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "Settings";
-            this.Text = "Settings";
+            this.Text = "Einstellungen von checklocal";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
@@ -151,6 +160,7 @@
         private System.Windows.Forms.TextBox textBCC;
         private System.Windows.Forms.TextBox textBCCSender;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolTip toolTip1;
 
     }
 }

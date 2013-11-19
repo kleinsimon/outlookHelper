@@ -58,5 +58,17 @@ namespace checklocal.Properties {
                 this["BCCSender"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool doAddBCC {
+            get {
+                return ((bool)(this["doAddBCC"]));
+            }
+            set {
+                this["doAddBCC"] = value;
+            }
+        }
     }
 }

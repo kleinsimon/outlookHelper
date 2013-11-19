@@ -37,6 +37,7 @@
             this.tab1 = this.Factory.CreateRibbonTab();
             this.group1 = this.Factory.CreateRibbonGroup();
             this.button1 = this.Factory.CreateRibbonButton();
+            this.checkBoxDoBcc = this.Factory.CreateRibbonCheckBox();
             this.tab1.SuspendLayout();
             this.group1.SuspendLayout();
             // 
@@ -50,6 +51,7 @@
             // group1
             // 
             this.group1.Items.Add(this.button1);
+            this.group1.Items.Add(this.checkBoxDoBcc);
             this.group1.Label = "LWT Helper";
             this.group1.Name = "group1";
             // 
@@ -60,6 +62,12 @@
             this.button1.OfficeImageId = "ControlToolboxOutlook";
             this.button1.ShowImage = true;
             this.button1.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button1_Click);
+            // 
+            // checkBoxDoBcc
+            // 
+            this.checkBoxDoBcc.Label = "BCC Hinzufügen";
+            this.checkBoxDoBcc.Name = "checkBoxDoBcc";
+            this.checkBoxDoBcc.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.checkBoxDoBcc_Click);
             // 
             // Ribbon1
             // 
@@ -80,6 +88,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonTab tab1;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup group1;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button1;
+        internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox checkBoxDoBcc;
     }
 
     partial class ThisRibbonCollection
