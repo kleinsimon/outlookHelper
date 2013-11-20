@@ -58,10 +58,23 @@ namespace checklocal
                 checkBoxDoBcc.Checked = value;
             }
         }
+        public bool doBCCFeedback
+        {
+            get
+            {
+                return Properties.Settings.Default.doBCCFeedback;
+            }
+            set
+            {
+                Properties.Settings.Default.doBCCFeedback = value;
+                Properties.Settings.Default.Save();
+            }
+        }
 
         private void Ribbon1_Load(object sender, RibbonUIEventArgs e)
         {
             checkIfSet();
+            checkBoxDoBcc.Checked = doAddBCC;
         }
 
         public void checkIfSet()

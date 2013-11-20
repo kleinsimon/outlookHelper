@@ -72,8 +72,8 @@
             // Ribbon1
             // 
             this.Name = "Ribbon1";
-            this.RibbonType = "Microsoft.Outlook.Mail.Compose, Microsoft.Outlook.Response.Compose, Microsoft.Out" +
-    "look.Sharing.Compose";
+            this.RibbonType = "Microsoft.Outlook.Explorer, Microsoft.Outlook.Mail.Compose, Microsoft.Outlook.Res" +
+    "ponse.Compose, Microsoft.Outlook.Sharing.Compose";
             this.Tabs.Add(this.tab1);
             this.Load += new Microsoft.Office.Tools.Ribbon.RibbonUIEventHandler(this.Ribbon1_Load);
             this.tab1.ResumeLayout(false);

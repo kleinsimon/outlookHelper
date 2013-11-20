@@ -15,6 +15,87 @@ namespace checklocal
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
             this.Application.ItemSend += Application_ItemSend;
+            this.Application.Inspectors.NewInspector += Inspectors_NewInspector;
+        }
+
+        void Inspectors_NewInspector(Outlook.Inspector Inspector)
+        {
+            try
+            {
+                Outlook.MailItem mail = (Outlook.MailItem)Inspector.CurrentItem;
+                mail.PropertyChange += mail_PropertyChange;
+                UpdateBccInMail(mail);
+            }
+            catch { }
+        }
+
+        private void UpdateBccInMail(Outlook.MailItem mail)
+        {
+            Outlook.Recipient bcc;
+            string[] BCCaddresses = Properties.Settings.Default.BCCSender.Trim().Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            string address = mail.SendUsingAccount.SmtpAddress;
+
+            if (BCCaddresses.Length == 0 || BCCaddresses.Contains(address))
+            {
+                bcc = mail.Recipients.Add(Properties.Settings.Default.AddBCC);
+                bcc.Type = (int)Outlook.OlMailRecipientType.olBCC;
+                bcc.Resolve();
+            }
+            else
+            {
+                removeRecipient(mail.Recipients, Properties.Settings.Default.AddBCC);
+            }
+        }
+
+        void removeRecipient(Outlook.Recipients recipients, string address)
+        {
+            bool res = true;
+            while (res)
+            {
+                res = removeRecipientCall(recipients, address);
+            }
+        }
+
+        bool removeRecipientCall(Outlook.Recipients recipients, string address)
+        {
+            int rm = -1;
+
+            foreach (Outlook.Recipient rc in recipients)
+            {
+                if (rc.Address.Trim() == address.Trim())
+                {
+                    rm = rc.Index;
+                }
+            }
+
+            if (rm == -1)
+            {
+                return false;
+            }
+            else
+            {
+                recipients.Remove(rm);
+                return true;
+            }
+        }
+
+        void mail_PropertyChange(string Name)
+        {
+            if (Name == "SendUsingAccount")
+            {
+                UpdateCurrentMail();
+            }
+        }
+
+        public void UpdateCurrentMail()
+        {
+            try
+            {
+                Outlook.MailItem mail = this.Application.ActiveInspector().CurrentItem;
+                string address = mail.SendUsingAccount.SmtpAddress;
+                UpdateBccInMail(mail);
+            }
+            catch { }
         }
 
         void Application_ItemSend(object Item, ref bool Cancel)
@@ -23,21 +104,12 @@ namespace checklocal
             {
                 string address;
 
-
                 Outlook.MailItem mail = (Outlook.MailItem)Item;
-                Outlook.Recipient bcc;
+                address = mail.SendUsingAccount.SmtpAddress;
 
                 if (Properties.Settings.Default.AddBCC != "" && (mail.BCC == null || !mail.BCC.Contains(Properties.Settings.Default.AddBCC)))
-                {
-                    address = mail.SendUsingAccount.SmtpAddress;
-                    string[] BCCaddresses = Properties.Settings.Default.BCCSender.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-
-                    if (BCCaddresses.Length == 0 || BCCaddresses.Contains(address))
-                    {
-                        bcc = mail.Recipients.Add(Properties.Settings.Default.AddBCC);
-                        bcc.Type = (int)Outlook.OlMailRecipientType.olBCC;
-                        bcc.Resolve();
-                    }
+                {          
+                    UpdateBccInMail(mail);
                 }
 
                 if (WildcardMatch(mail.SendUsingAccount.SmtpAddress, Properties.Settings.Default.checkSender, false))
@@ -50,9 +122,8 @@ namespace checklocal
                     if (dr == DialogResult.Cancel) Cancel = true;
                 }
             }
-            catch (Exception e)
+            catch
             {
-                MessageBox.Show(e.Message + "\n" + e.StackTrace + "\n" + e.Source);
             }
         }
 

@@ -20,6 +20,7 @@ namespace checklocal
             textCheck.Text = parent.checkSender;
             textBCC.Text = parent.AddBCC;
             textBCCSender.Text = parent.BCCSender;
+            checkBoxFeedback.Checked = parent.doBCCFeedback;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -27,6 +28,7 @@ namespace checklocal
             parent.checkSender = textCheck.Text;
             parent.AddBCC = textBCC.Text;
             parent.BCCSender = textBCCSender.Text;
+            parent.doBCCFeedback = checkBoxFeedback.Checked;
 
             this.Close();
         }

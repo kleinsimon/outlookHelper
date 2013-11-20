@@ -61,13 +61,25 @@ namespace checklocal.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool doAddBCC {
             get {
                 return ((bool)(this["doAddBCC"]));
             }
             set {
                 this["doAddBCC"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool doBCCFeedback {
+            get {
+                return ((bool)(this["doBCCFeedback"]));
+            }
+            set {
+                this["doBCCFeedback"] = value;
             }
         }
     }
