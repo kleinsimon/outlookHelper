@@ -37,9 +37,9 @@
             this.textBCC = new System.Windows.Forms.TextBox();
             this.textBCCSender = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.label4 = new System.Windows.Forms.Label();
             this.checkBoxFeedback = new System.Windows.Forms.CheckBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -157,6 +157,8 @@
             this.checkBoxFeedback.Name = "checkBoxFeedback";
             this.checkBoxFeedback.Size = new System.Drawing.Size(15, 14);
             this.checkBoxFeedback.TabIndex = 8;
+            this.toolTip1.SetToolTip(this.checkBoxFeedback, "Wird der BCC vor dem Abschicken eingefügt (weil er vorher gelöscht wurde), warnen" +
+        "?");
             this.checkBoxFeedback.UseVisualStyleBackColor = true;
             // 
             // Settings

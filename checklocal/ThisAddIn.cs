@@ -20,9 +20,12 @@ namespace checklocal
 
         void Inspectors_NewInspector(Outlook.Inspector Inspector)
         {
+            if (!Properties.Settings.Default.doAddBCC) return;
             try
             {
                 Outlook.MailItem mail = (Outlook.MailItem)Inspector.CurrentItem;
+                if (mail.Sent)
+                    return;
                 mail.PropertyChange += mail_PropertyChange;
                 UpdateBccInMail(mail);
             }
@@ -31,13 +34,16 @@ namespace checklocal
 
         private void UpdateBccInMail(Outlook.MailItem mail)
         {
+            if (!Properties.Settings.Default.doAddBCC) return;
             Outlook.Recipient bcc;
             string[] BCCaddresses = Properties.Settings.Default.BCCSender.Trim().Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             string address = mail.SendUsingAccount.SmtpAddress;
 
             if (BCCaddresses.Length == 0 || BCCaddresses.Contains(address))
             {
-                bcc = mail.Recipients.Add(Properties.Settings.Default.AddBCC);
+                if (RecipientsContainAddress(mail.Recipients, Properties.Settings.Default.AddBCC.Trim()))
+                    return;
+                bcc = mail.Recipients.Add(Properties.Settings.Default.AddBCC.Trim());
                 bcc.Type = (int)Outlook.OlMailRecipientType.olBCC;
                 bcc.Resolve();
             }
@@ -79,6 +85,17 @@ namespace checklocal
             }
         }
 
+        bool RecipientsContainAddress(Outlook.Recipients recipients, string address)
+        {
+            foreach (Outlook.Recipient rc in recipients)
+            {
+                if (rc.Address.Trim() == address.Trim())
+                    return true;
+            }
+
+            return false;
+        }
+
         void mail_PropertyChange(string Name)
         {
             if (Name == "SendUsingAccount")
@@ -89,6 +106,7 @@ namespace checklocal
 
         public void UpdateCurrentMail()
         {
+            if (!Properties.Settings.Default.doAddBCC) return;
             try
             {
                 Outlook.MailItem mail = this.Application.ActiveInspector().CurrentItem;
@@ -107,9 +125,11 @@ namespace checklocal
                 Outlook.MailItem mail = (Outlook.MailItem)Item;
                 address = mail.SendUsingAccount.SmtpAddress;
 
-                if (Properties.Settings.Default.AddBCC != "" && (mail.BCC == null || !mail.BCC.Contains(Properties.Settings.Default.AddBCC)))
+                if (Properties.Settings.Default.doAddBCC && Properties.Settings.Default.AddBCC != "" && (mail.BCC == null || !mail.BCC.Contains(Properties.Settings.Default.AddBCC)))
                 {          
                     UpdateBccInMail(mail);
+                    if (Properties.Settings.Default.doAddBCC)
+                        MessageBox.Show("Die Addresse " + Properties.Settings.Default.AddBCC + " wurde als BCC hinzugefügt");
                 }
 
                 if (WildcardMatch(mail.SendUsingAccount.SmtpAddress, Properties.Settings.Default.checkSender, false))
