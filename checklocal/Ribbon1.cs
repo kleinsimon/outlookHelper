@@ -86,6 +86,7 @@ namespace checklocal
             }
             else
             {
+                checkBoxDoBcc.Checked = false;
                 checkBoxDoBcc.Enabled = true;
                 checkBoxDoBcc.SuperTip = "";
             }

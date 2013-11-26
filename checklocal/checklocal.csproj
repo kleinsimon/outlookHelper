@@ -34,7 +34,7 @@
     <PublishUrl>\\wtech.local\wt\wt%24\Organ-Int\Arbeitsbereich\EDV-Tools\Outlook\</PublishUrl>
     <InstallUrl>\\wtech.local\wt\wt%24\Organ-Int\Arbeitsbereich\EDV-Tools\Outlook\</InstallUrl>
     <TargetCulture>de</TargetCulture>
-    <ApplicationVersion>1.0.0.8</ApplicationVersion>
+    <ApplicationVersion>1.0.0.9</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>7</UpdateInterval>
