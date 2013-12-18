@@ -125,12 +125,12 @@ namespace checklocal
                 Outlook.MailItem mail = (Outlook.MailItem)Item;
                 address = mail.SendUsingAccount.SmtpAddress;
 
-                if (Properties.Settings.Default.doAddBCC && Properties.Settings.Default.AddBCC != "" && (mail.BCC == null || !mail.BCC.Contains(Properties.Settings.Default.AddBCC)))
-                {          
-                    UpdateBccInMail(mail);
-                    if (Properties.Settings.Default.doAddBCC)
-                        MessageBox.Show("Die Addresse " + Properties.Settings.Default.AddBCC + " wurde als BCC hinzugefügt");
-                }
+                //if (Properties.Settings.Default.doAddBCC && Properties.Settings.Default.AddBCC != "" && (mail.BCC == null || !mail.BCC.Contains(Properties.Settings.Default.AddBCC)))
+                //{          
+                //    UpdateBccInMail(mail);
+                //    if (Properties.Settings.Default.doAddBCC)
+                //        MessageBox.Show("Die Addresse " + Properties.Settings.Default.AddBCC + " wurde als BCC hinzugefügt");
+                //}
 
                 if (WildcardMatch(mail.SendUsingAccount.SmtpAddress, Properties.Settings.Default.checkSender, false))
                 {
